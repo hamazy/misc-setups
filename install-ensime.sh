@@ -3,7 +3,7 @@
 set -o errexit
 set -o nounset
 
-ENSIME_ROOT=$HOME/.emsime
+ENSIME_ROOT=$HOME/.ensime
 if [ ! -d $ENSIME_ROOT ] ; then
     mkdir $ENSIME_ROOT
 fi
