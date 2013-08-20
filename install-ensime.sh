@@ -10,8 +10,11 @@ if [ ! -d $ENSIME_ROOT ] ; then
     chmod 755 $ENSIME_ROOT/bin/server
 fi
 
-[ ! -d $HOME/.sbt/plugins ] && mkdir -p $HOME/.sbt/plugins
-if [ ! $(grep "ensime-sbt-cmd" $HOME/.sbt/plugins/plugins.sbt) ] ; then
+SBT_PLUGINS=$HOME/.sbt/plugins
+SBT_PLUGINS_DEF=$SBT_PLUGINS/plugins.sbt
+[ ! -d $SBT_PLUGINS ] && mkdir -p $SBT_PLUGINS
+[ ! -f $SBT_PLUGINS_DEF ] && touch $SBT_PLUGINS_DEF
+if [ ! $(grep "ensime-sbt-cmd" $SBT_PLUGINS_DEF) ] ; then
     ed <<EOF
 f $HOME/.sbt/plugins/plugins.sbt
 \$a
