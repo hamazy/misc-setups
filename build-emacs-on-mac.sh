@@ -34,8 +34,9 @@ curl -s -L -o - http://openlab.jp/skk/dic/SKK-JISYO.L.gz | gzip -dc >dic/SKK-JIS
 make what-where EMACS=$dir/emacs-24.3/nextstep/Emacs.app/Contents/MacOS/Emacs
 make install EMACS=$dir/emacs-24.3/nextstep/Emacs.app/Contents/MacOS/Emacs
 popd
-ed <<EOF
-f \$HOME/.skk
+if [ ! -f $HOME/.skk ] ; then
+    ed <<EOF
+f $HOME/.skk
 a
 (setq skk-large-jisyo "/Applications/Emacs.app/Contents/Resources/etc/skk/SKK-JISYO.L")
 (setq skk-dcomp-activate t)
@@ -43,5 +44,6 @@ a
 w
 q
 EOF
+fi
 
 popd >/dev/null
