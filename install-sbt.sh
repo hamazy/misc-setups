@@ -3,7 +3,7 @@
 set -o errexit
 set -o nounset
 
-SBT_VERSION=0.12.1
+SBT_VERSION=0.13.1
 SBT_PACKAGE_DIR=$HOME/.sbt-$SBT_VERSION
 
 if [ ! -d $SBT_PACKAGE_DIR ] ; then
