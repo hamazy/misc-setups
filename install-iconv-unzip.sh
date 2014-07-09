@@ -3,25 +3,27 @@
 set -o errexit
 set -o nounset
 
-sudo port install libiconv
-sudo port fetch unzip
+brew tap homebrew/dupes
+brew install libiconv
+brew link libiconv --force
 
-tar -xzf /opt/local/var/macports/distfiles/unzip/unzip60.tar.gz
+[ ! -d ~/Downloads/unzip60 ] && \
+  curl -s -L -o - http://jaist.dl.sourceforge.net/project/infozip/UnZip%206.x%20%28latest%29/UnZip%206.0/unzip60.tar.gz | tar xzf - -C ~/Downloads
 
-cd unzip60
+cd ~/Downloads/unzip60
 curl https://bugs.archlinux.org/task/15256?getfile=3685 | patch -p1
 
 ed unix/Makefile <<EOF
 /^LFLAGS/
 c
-LFLAGS1 = -L/opt/local/lib -liconv
+LFLAGS1 = -L/usr/local/lib -liconv
 .
 /^prefix/
 c
-prefix = /opt/local
+prefix = /usr/local
 .
 875c
-	\$(MAKE) unzips CFLAGS="-O3 -Wall -DBSD -I/opt/local/include -DNATIVE" LF2=""
+	\$(MAKE) unzips CFLAGS="-O3 -Wall -DBSD -I/usr/local/include -DNATIVE" LF2=""
 .
 w
 q
