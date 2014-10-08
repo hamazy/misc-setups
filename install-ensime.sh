@@ -15,10 +15,8 @@ SBT_PLUGINS=$HOME/.sbt/$SBT_VERSION/plugins
 SBT_PLUGINS_DEF=$SBT_PLUGINS/plugins.sbt
 [ ! -d $SBT_PLUGINS ] && mkdir -p $SBT_PLUGINS
 [ ! -f $SBT_PLUGINS_DEF ] && touch $SBT_PLUGINS_DEF
-grep "ensime-sbt-cmd" $SBT_PLUGINS_DEF
-if [ ! $? ] ; then
-    ed <<EOF
-f $HOME/.sbt/plugins/plugins.sbt
+grep "ensime-sbt-cmd" $SBT_PLUGINS_DEF || ed <<EOF
+f $SBT_PLUGINS_DEF
 \$a
 
 addSbtPlugin("org.ensime" % "ensime-sbt-cmd" % "0.1.2")
@@ -27,4 +25,3 @@ addSbtPlugin("org.ensime" % "ensime-sbt-cmd" % "0.1.2")
 w
 q
 EOF
-fi
