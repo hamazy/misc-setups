@@ -9,7 +9,7 @@ while [ -h "$PRG" ] ; do
 done
 dir=$(cd "$(dirname "$PRG")"; pwd)
 
-version=24.3
+version=24.4
 
 pushd "$dir" >/dev/null
 
