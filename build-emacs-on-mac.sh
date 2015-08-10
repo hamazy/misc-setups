@@ -9,14 +9,12 @@ while [ -h "$PRG" ] ; do
 done
 dir=$(cd "$(dirname "$PRG")"; pwd)
 
-version=24.4
+version=24.5
 
 pushd "$dir" >/dev/null
 
-# curl -s -L -O http://core.ring.gr.jp/pub/GNU/emacs/emacs-${version}.tar.gz
-# tar -xzf emacs-${version}.tar.gz
-
-[ ! -d emacs-${version} ] && git clone git@github.com:mirrors/emacs.git emacs-${version}
+[ ! -f emacs-${version}.tar.gz ] && curl -s -L -O http://core.ring.gr.jp/pub/GNU/emacs/emacs-${version}.tar.gz
+[ ! -d emacs-${version} ] && tar -xzf emacs-${version}.tar.gz
 
 pushd emacs-${version}
 [ ! -f configure ] && ./autogen.sh
