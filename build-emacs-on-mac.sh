@@ -33,9 +33,10 @@ make
 make install
 popd
 
-curl -s -L -O http://www.ring.gr.jp/archives/elisp/skk/maintrunk/ddskk-15.1.tar.gz
-tar -xzf ddskk-15.1.tar.gz
-pushd ddskk-15.1
+ddskk_version=15.2
+curl -s -L -O http://www.ring.gr.jp/archives/elisp/skk/maintrunk/ddskk-${ddskk_version}.tar.gz
+tar -xzf ddskk-${ddskk_version}.tar.gz
+pushd ddskk-${ddskk_version}
 curl -s -L -o - http://openlab.jp/skk/dic/SKK-JISYO.L.gz | gzip -dc >dic/SKK-JISYO.L
 make what-where EMACS=$dir/emacs-${version}/nextstep/Emacs.app/Contents/MacOS/Emacs
 make install EMACS=$dir/emacs-${version}/nextstep/Emacs.app/Contents/MacOS/Emacs
