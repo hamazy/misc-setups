@@ -26,9 +26,10 @@ make
 make install
 popd
 
-curl -s -L -O http://mew.org/Release/mew-6.5.tar.gz
-tar -xzf mew-6.5.tar.gz
-pushd mew-6.5
+mew_version=6.6
+[ ! -f mew-${mew_version}.tar.gz ] && curl -s -L -O http://mew.org/Release/mew-${mew_version}.tar.gz
+[ ! -d mew-${mew_version} ] && tar -xzf mew-${mew_version}.tar.gz
+pushd mew-${mew_version}
 ./configure --prefix=$dir/emacs-${version}/nextstep/Emacs.app/Contents/MacOS/ --with-emacs=$dir/emacs-${version}/nextstep/Emacs.app/Contents/MacOS/Emacs --with-elispdir=$dir/emacs-${version}/nextstep/Emacs.app/Contents/Resources/site-lisp/ --with-etcdir=$dir/emacs-${version}/nextstep/Emacs.app/Contents/Resources/etc/ --infodir=$dir/emacs-${version}/nextstep/Emacs.app/Contents/Resources/info
 make
 make install
