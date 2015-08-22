@@ -1,0 +1,8 @@
+# KEYBOARD CONFIGURATION FILE
+
+# Consult the keyboard(5) manual page.
+
+XKBLAYOUT=us,jp
+XKBVARIANT=dvorak,
+XKBOPTIONS=grp:toggle,ctrl:swapcaps
+BACKSPACE=guess

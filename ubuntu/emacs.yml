@@ -1,0 +1,55 @@
+---
+- hosts: all
+  vars:
+    emacs_version: 24.5
+
+  tasks:
+    - name: install required packages
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - automake
+        - autoconf
+        - texinfo
+        - xorg-dev
+        - libjpeg-dev
+        - libpng12-dev
+        - libgif-dev
+        - libtiff5-dev
+        - libxpm-dev
+        - libncurses5-dev
+        - imagemagick
+      sudo: yes
+
+    - name: download the tarball
+      get_url: url=http://core.ring.gr.jp/pub/GNU/emacs/emacs-{{ emacs_version }}.tar.gz
+               dest=~/
+
+    - name: extract it
+      command: tar xzf ~/emacs-{{ emacs_version }}.tar.gz
+      args:
+        creates: ~/emacs-{{ emacs_version }}
+
+    - name: configure
+      command: ./configure
+      args:
+        chdir: ~/emacs-{{ emacs_version }}
+
+    - name: make bootstrap
+      command: make bootstrap
+      args:
+        chdir: ~/emacs-{{ emacs_version }}
+
+    - name: make
+      command: make
+      args:
+        chdir: ~/emacs-{{ emacs_version }}
+
+    - name: make install
+      command: make install
+      args:
+        chdir: /home/{{ vagrant_ssh_user }}/emacs-{{ emacs_version }}
+      sudo: yes
+
+    - name: retrieve configurations
+      git: repo=https://github.com/hamazy/dot-emacs-d.git
+           dest=~/.emacs.d

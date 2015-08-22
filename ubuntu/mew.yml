@@ -1,0 +1,44 @@
+---
+- hosts: all
+  vars:
+    mew_version: 6.6
+
+  tasks:
+    - name: install required packages
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - stunnel4
+        - w3m
+
+    - name: download the tarball
+      get_url: url=http://mew.org/Release/mew-{{ mew_version }}.tar.gz
+               dest=~/
+
+    - name: extract it
+      command: tar xzf ~/mew-{{ mew_version }}.tar.gz
+      args:
+        creates: ~/mew-{{ mew_version }}
+
+    - name: configure
+      command: ./configure
+      args:
+        chdir: ~/mew-{{ mew_version }}
+
+    - name: make clean
+      command: make clean
+      args:
+        chdir: ~/mew-{{ mew_version }}
+
+    - name: make
+      command: make
+      args:
+        chdir: ~/mew-{{ mew_version }}
+
+    - name: make install
+      command: make install
+      args:
+        chdir: /home/{{ vagrant_ssh_user }}/mew-{{ mew_version }}
+      sudo: yes
+
+    - name: place a configuration file
+      copy: src=dot-mew.el dest=~/.mew.el

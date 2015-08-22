@@ -1,0 +1,14 @@
+---
+- hosts: all
+
+  tasks:
+    - name: add required repository
+      apt_repository: repo='deb http://archive.canonical.com/ubuntu/ vivid partner' state=present
+      sudo: yes
+
+    - name: install packages
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - skype
+        - skype-bin
+      sudo: yes

@@ -1,0 +1,35 @@
+---
+- hosts: all
+  vars:
+    ddskk_version: 15.2
+
+  tasks:
+    - name: install required packages
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - curl
+      sudo: yes
+
+    - name: download the tarball
+      get_url: url=http://www.ring.gr.jp/archives/elisp/skk/maintrunk/ddskk-{{ ddskk_version }}.tar.gz
+               dest=~/
+
+    - name: extract it
+      command: tar xzf ~/ddskk-{{ ddskk_version }}.tar.gz
+      args:
+        creates: ~/ddskk-{{ ddskk_version }}
+
+    - name: download and place a dictionary
+      shell: curl -s -L -o - http://openlab.jp/skk/dic/SKK-JISYO.L.gz | gzip -dc >dic/SKK-JISYO.L
+      args:
+        chdir: ~/ddskk-{{ ddskk_version }}
+        creates: ~/ddskk-{{ ddskk_version }}/dic/SKK-JISYO.L
+
+    - name: make install
+      command: make install
+      args:
+        chdir: /home/{{ vagrant_ssh_user }}/ddskk-{{ ddskk_version }}
+      sudo: yes
+
+    - name: place a configuration file
+      copy: src=dot-skk dest=~/.skk

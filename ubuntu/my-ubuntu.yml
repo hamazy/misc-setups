@@ -1,0 +1,31 @@
+---
+- hosts: all
+
+  tasks:
+    - name: install required packages
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - chromium-browser
+        - nautilus-dropbox
+        - tmux
+        - git
+        - pass
+        - virtualbox
+        - vagrant
+      sudo: yes
+
+    - name: use customized keyborad definition
+      copy: src=keyboard.dvorak dest=/etc/default/keyboard
+      sudo: yes
+
+    - name: copy my tmux configuration
+      copy: src=tmux.conf dest=~/.tmux.conf
+
+    - name: clone password store from repository
+      git: repo=https://github.com/hamazy/passstore.git
+           dest=~/.password-store
+
+- include: emacs.yml
+- include: mew.yml
+- include: skk.yml
+- include: skype.yml
