@@ -1,0 +1,12 @@
+---
+- hosts: all
+
+  tasks:
+    - name: config git username
+      command: git config --global user.name "Suguru Hamazaki"
+
+    - name: config git email
+      command: git config --global user.email hamazy@suguruhamazaki.com
+
+    - name: config git editor
+      command: git config --global core.editor emacsclient

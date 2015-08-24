@@ -34,3 +34,4 @@
 - include: skype.yml
 - include: java.yml
 - include: japanese.yml
+- include: git.yml
