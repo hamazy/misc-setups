@@ -13,6 +13,8 @@
         - virtualbox
         - vagrant
         - ansible
+        - davfs2
+        - screen
       sudo: yes
 
     - name: use customized keyborad definition
