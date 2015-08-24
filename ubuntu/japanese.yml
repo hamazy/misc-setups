@@ -1,0 +1,13 @@
+---
+- hosts: all
+
+  tasks:
+    - name: install packages
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - uim
+        - uim-skk
+      sudo: yes
+
+    - name: choose skk
+      copy: src=dot-xinputrc dest=~/.xinputrc

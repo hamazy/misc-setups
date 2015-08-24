@@ -33,3 +33,4 @@
 - include: skk.yml
 - include: skype.yml
 - include: java.yml
+- include: japanese.yml
