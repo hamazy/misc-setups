@@ -12,6 +12,7 @@
         - pass
         - virtualbox
         - vagrant
+        - ansible
       sudo: yes
 
     - name: use customized keyborad definition
