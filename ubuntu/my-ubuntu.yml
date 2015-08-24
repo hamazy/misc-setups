@@ -29,3 +29,4 @@
 - include: mew.yml
 - include: skk.yml
 - include: skype.yml
+- include: java.yml
