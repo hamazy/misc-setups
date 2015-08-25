@@ -15,6 +15,7 @@
         - ansible
         - davfs2
         - screen
+        - flashplugin-installer
       sudo: yes
 
     - name: use customized keyborad definition
