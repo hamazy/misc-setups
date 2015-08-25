@@ -36,3 +36,4 @@
 - include: java.yml
 - include: japanese.yml
 - include: git.yml
+- include: gtags.yml

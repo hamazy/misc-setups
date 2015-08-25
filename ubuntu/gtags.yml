@@ -1,0 +1,30 @@
+---
+- hosts: all
+  vars:
+    gnu_global_version: 6.5
+
+  tasks:
+    - name: download the tarball
+      get_url: url=http://tamacom.com/global/global-{{ gnu_global_version }}.tar.gz
+               dest=~/
+
+    - name: extract it
+      command: tar xzf ~/global-{{ gnu_global_version }}.tar.gz -C ~/
+      args:
+        creates: ~/global-{{ gnu_global_version }}
+
+    - name: configure it
+      command: ./configure
+      args:
+        chdir: ~/global-{{ gnu_global_version }}
+
+    - name: make it
+      command: make
+      args:
+        chdir: ~/global-{{ gnu_global_version }}
+
+    - name: install it
+      command: make install
+      args:
+        chdir: /home/{{ ansible_ssh_user }}/global-{{ gnu_global_version }}
+      sudo: yes
