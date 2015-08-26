@@ -37,3 +37,4 @@
 - include: japanese.yml
 - include: git.yml
 - include: gtags.yml
+- include: lein.yml
