@@ -16,6 +16,7 @@
         - davfs2
         - screen
         - flashplugin-installer
+        - gnome-sound-recorder
       sudo: yes
 
     - name: use customized keyborad definition
