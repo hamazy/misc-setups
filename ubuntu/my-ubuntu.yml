@@ -14,6 +14,7 @@
         - vagrant
         - ansible
         - davfs2
+        - exfat-fuse
         - screen
         - flashplugin-installer
         - gnome-sound-recorder
