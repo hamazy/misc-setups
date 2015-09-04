@@ -1,0 +1,20 @@
+---
+- hosts: all
+
+  tasks:
+    - name: install required packages
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - texlive-xetex
+        - dblatex
+        - asciidoc
+        - fonts-ipafont
+        - texlive-lang-cjk
+        - latex-cjk-all
+      sudo: yes
+
+    - name: prepare a directory for configuration files
+      file: path=~/.asciidoc state=directory
+
+    - name: place a configuration file
+      copy: src=a2x.conf dest=~/.asciidoc/

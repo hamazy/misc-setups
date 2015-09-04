@@ -40,3 +40,4 @@
 - include: git.yml
 - include: gtags.yml
 - include: lein.yml
+- include: asciidoc.yml
