@@ -1,0 +1,35 @@
+---
+- hosts: all
+
+
+  tasks:
+    - name: checkout the source code
+      git: repo=https://github.com/emacsmirror/w3m.git
+           dest=~/emacs-w3m
+
+    - name: autoconf
+      command: autoconf
+      args:
+        chdir: ~/emacs-w3m
+        creates: ~/emacs-w3m/configure
+
+    - name: configure
+      command: ./configure
+      args:
+        chdir: ~/emacs-w3m
+
+    - name: make clean
+      command: make clean
+      args:
+        chdir: ~/emacs-w3m
+
+    - name: make
+      command: make
+      args:
+        chdir: ~/emacs-w3m
+
+    - name: make install
+      command: make install
+      args:
+        chdir: /home/{{ vagrant_ssh_user }}/emacs-w3m
+      sudo: yes

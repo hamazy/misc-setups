@@ -33,6 +33,7 @@
 
 - include: emacs.yml
 - include: mew.yml
+- include: emacs-w3m.yml
 - include: skk.yml
 - include: skype.yml
 - include: java.yml
