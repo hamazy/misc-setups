@@ -9,6 +9,7 @@
       with_items:
         - stunnel4
         - w3m
+        - wv
 
     - name: download the tarball
       get_url: url=http://mew.org/Release/mew-{{ mew_version }}.tar.gz
