@@ -1,0 +1,9 @@
+---
+- hosts: all
+
+  tasks:
+    - name: install required packages
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - haskell-platform
+      sudo: yes

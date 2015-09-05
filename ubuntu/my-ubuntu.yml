@@ -42,3 +42,4 @@
 - include: gtags.yml
 - include: lein.yml
 - include: asciidoc.yml
+- include: haskell.yml
