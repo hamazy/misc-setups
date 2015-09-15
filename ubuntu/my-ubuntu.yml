@@ -10,7 +10,6 @@
         - tmux
         - git
         - pass
-        - vagrant
         - ansible
         - davfs2
         - exfat-fuse
@@ -43,3 +42,4 @@
 - include: asciidoc.yml
 - include: haskell.yml
 - include: virtualbox.yml
+- include: vagrant.yml
