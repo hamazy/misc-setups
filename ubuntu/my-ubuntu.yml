@@ -10,7 +10,6 @@
         - tmux
         - git
         - pass
-        - virtualbox
         - vagrant
         - ansible
         - davfs2
@@ -43,3 +42,4 @@
 - include: lein.yml
 - include: asciidoc.yml
 - include: haskell.yml
+- include: virtualbox.yml

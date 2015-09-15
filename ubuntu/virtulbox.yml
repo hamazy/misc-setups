@@ -1,0 +1,15 @@
+---
+- hosts: all
+
+  tasks:
+    - name: add apt repository for virtualbox
+      apt_repository: repo='deb http://download.virtualbox.org/virtualbox/debian vivid contrib' state=present
+      sudo: yes
+
+    - name: add apt key for virtualbox
+      apt_key: url=https://www.virtualbox.org/download/oracle_vbox.asc state=present
+      sudo: yes
+
+    - name: install required package
+      apt: name=virtualbox-5.0 state=latest update_cache=yes
+      sudo: yes
