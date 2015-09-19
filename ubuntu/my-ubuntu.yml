@@ -43,3 +43,4 @@
 - include: haskell.yml
 - include: virtualbox.yml
 - include: vagrant.yml
+- include: eclipse.yml

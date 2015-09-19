@@ -1,0 +1,15 @@
+---
+- hosts: all
+
+  tasks:
+    - name: download eclipse tarball
+      get_url: url='http://ftp.jaist.ac.jp/pub/eclipse/technology/epp/downloads/release/mars/R/eclipse-java-mars-R-linux-gtk-x86_64.tar.gz' dest=~/Downloads/eclipse-java-mars-R-linux-gtk-x86_64.tar.gz
+
+    - name: extract it
+      command: tar xzf eclipse-java-mars-R-linux-gtk-x86_64.tar.gz -C /opt
+      args:
+        chdir: /home/{{ ansible_ssh_user }}/Downloads
+      sudo: yes
+
+    - name: place a launcher
+      copy: src=eclipse.desktop dest=~/.local/share/applications/eclipse.desktop
