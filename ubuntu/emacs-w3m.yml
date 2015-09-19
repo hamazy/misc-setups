@@ -31,5 +31,5 @@
     - name: make install
       command: make install
       args:
-        chdir: /home/{{ vagrant_ssh_user }}/emacs-w3m
+        chdir: /home/{{ ansible_ssh_user }}/emacs-w3m
       sudo: yes
