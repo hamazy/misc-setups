@@ -16,6 +16,7 @@
         - screen
         - flashplugin-installer
         - gnome-sound-recorder
+        - printer-driver-cups-pdf
       sudo: yes
 
     - name: use customized keyborad definition
