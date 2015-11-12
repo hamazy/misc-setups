@@ -1,0 +1,31 @@
+---
+- hosts: all
+
+  tasks:
+    - name: install required package
+      apt: name={{ item }} state=latest update_cache=yes
+      sudo: yes
+      with_items:
+        - libpurple-dev
+        - thrift-compiler
+        - libthrift-dev
+        - libgcrypt20-dev
+        - libboost-dev
+        - pidgin
+
+    - name: retrieve the source
+      git: >-
+        repo=http://altrepo.eu/git/purple-line.git
+        dest=~/Downloads/purple-line
+        accept_hostkey=yes
+
+    - name: build from the source
+      command: make
+      args:
+        chdir: ~/Downloads/purple-line
+
+    - name: install it
+      command: make install
+      args:
+        chdir: ~{{ ansible_ssh_user }}/Downloads/purple-line
+      sudo: yes
