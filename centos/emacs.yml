@@ -1,0 +1,70 @@
+---
+- hosts: all
+  vars:
+    emacs_version: 24.5
+
+  tasks:
+    - name: install required packages
+      yum: name={{ item }} state=latest
+      with_items:
+        - automake
+        - autoconf268
+        - texinfo
+        - libX11-devel
+        - libXaw-devel
+        - libjpeg-turbo-devel
+        - libpng-devel
+        - giflib-devel
+        - libtiff-devel
+        - libXpm-devel
+        - ncurses-devel
+        - ImageMagick
+      sudo: yes
+
+    - name: remove old executables
+      file: path=/usr/bin/{{ item }} state=absent
+      with_items:
+        - autoconf
+        - autoreconf
+      sudo: yes
+
+    - name: use new executables
+      file: path=/usr/bin/{{ item }} src=/usr/bin/{{ item}}268 state=link
+      with_items:
+        - autoconf
+        - autoreconf
+      sudo: yes
+
+    - name: download the tarball
+      get_url: url=http://core.ring.gr.jp/pub/GNU/emacs/emacs-{{ emacs_version }}.tar.gz
+               dest=~/
+
+    - name: extract it
+      command: tar xzf ~/emacs-{{ emacs_version }}.tar.gz
+      args:
+        creates: ~/emacs-{{ emacs_version }}
+
+    - name: configure
+      command: ./configure
+      args:
+        chdir: ~/emacs-{{ emacs_version }}
+
+    - name: make bootstrap
+      command: make bootstrap
+      args:
+        chdir: ~/emacs-{{ emacs_version }}
+
+    - name: make
+      command: make
+      args:
+        chdir: ~/emacs-{{ emacs_version }}
+
+    - name: make install
+      command: make install
+      args:
+        chdir: /home/{{ ansible_ssh_user }}/emacs-{{ emacs_version }}
+      sudo: yes
+
+    - name: retrieve configurations
+      git: repo=https://github.com/hamazy/dot-emacs-d.git
+           dest=~/.emacs.d
