@@ -11,6 +11,7 @@
         - fonts-ipafont
         - texlive-lang-cjk
         - latex-cjk-all
+        - graphviz
       sudo: yes
 
     - name: prepare a directory for configuration files
@@ -18,3 +19,24 @@
 
     - name: place a configuration file
       copy: src=a2x.conf dest=~/.asciidoc/
+
+    - name: download PlantUML filter
+      get_url: url=https://asciidoc-plantuml.googlecode.com/files/plantuml.zip dest=~/
+
+    - name: check if PlantUML filter is installed
+      shell: asciidoc --filter list | grep plantuml
+      register: plantuml_installed
+      ignore_errors: true
+
+    - name: check if DITAA filter is installed
+      shell: asciidoc --filter list | grep ditaa
+      register: ditaa_installed
+      ignore_errors: true
+
+    - name: install PlantUML filter
+      command: asciidoc --filter install ~/plantuml.zip
+      when: plantuml_installed.rc == 1
+
+    - name: install DITAA filter
+      git: repo=https://github.com/hwmaier/asciidoc-ditaa-filter.git dest=~/.asciidoc/filters/ditaa
+      when: ditaa_installed.rc == 1
