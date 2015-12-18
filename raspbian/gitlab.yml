@@ -1,0 +1,43 @@
+---
+- hosts: gitlab
+
+  tasks:
+    - name: install prerequisite
+      sudo: yes
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - curl
+        - openssh-server
+        - ca-certificates
+        - postfix
+        - apt-transport-https
+
+    - name: accept key
+      sudo: yes
+      apt_key: url=https://packages.gitlab.com/gpg.key state=present
+
+    - name: add gitlab package server
+      sudo: yes
+      apt_repository: repo={{ item }} state=present
+      with_items:
+        - "'deb https://packages.gitlab.com/gitlab/raspberry-pi2/debian/ wheezy main'"
+        - "'deb-src https://packages.gitlab.com/gitlab/raspberry-pi2/debian/ wheezy main'"
+
+    - name: install gitlab packages
+      sudo: yes
+      apt: name=gitlab-ce state=latest update_cache=yes
+
+    - name: configure and start gitlab
+      sudo: yes
+      command: gitlab-ctl reconfigure
+
+    - name: copy config
+      sudo: yes
+      template: src=gitlab.rb.j2 dest=/etc/gitlab/gitlab.rb owner=root group=root mode=0600
+      notify:
+        - reconfigure gitlab
+
+  handlers:
+    - name: reconfigure gitlab
+      sudo: yes
+      command: gitlab-ctl reconfigure
