@@ -1,7 +1,7 @@
 ---
 - hosts: all
   vars:
-    mew_version: 6.6
+    mew_version: 6.8
 
   tasks:
     - name: install required packages
@@ -10,36 +10,38 @@
         - stunnel4
         - w3m
         - wv
+      become: yes
 
     - name: download the tarball
       get_url: url=http://mew.org/Release/mew-{{ mew_version }}.tar.gz
-               dest=~/
+               dest=/home/{{ ansible_user_id }}/Downloads
 
     - name: extract it
-      command: tar xzf ~/mew-{{ mew_version }}.tar.gz
+      command: tar xzf /home/{{ ansible_user_id }}/Downloads/mew-{{ mew_version }}.tar.gz
       args:
-        creates: ~/mew-{{ mew_version }}
+        chdir: /home/{{ ansible_user_id }}/Downloads
+        creates: /home/{{ ansible_user_id }}/Downloads/mew-{{ mew_version }}
 
     - name: configure
       command: ./configure
       args:
-        chdir: ~/mew-{{ mew_version }}
+        chdir: /home/{{ ansible_user_id }}/Downloads/mew-{{ mew_version }}
 
     - name: make clean
       command: make clean
       args:
-        chdir: ~/mew-{{ mew_version }}
+        chdir: /home/{{ ansible_user_id }}/Downloads/mew-{{ mew_version }}
 
     - name: make
       command: make
       args:
-        chdir: ~/mew-{{ mew_version }}
+        chdir: /home/{{ ansible_user_id }}/Downloads/mew-{{ mew_version }}
 
     - name: make install
       command: make install
       args:
-        chdir: /home/{{ ansible_ssh_user }}/mew-{{ mew_version }}
-      sudo: yes
+        chdir: /home/{{ ansible_user_id }}/Downloads/mew-{{ mew_version }}
+      become: yes
 
     - name: place a configuration file
-      copy: src=dot-mew.el dest=~/.mew.el
+      copy: src=dot-mew.el dest=/home/{{ ansible_user_id }}/.mew.el

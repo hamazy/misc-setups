@@ -45,25 +45,25 @@
 	 ("signature-file" . "~/.signature.gmail")
 	 ("fcc". "%Sent"))
 
-	("xyzzyx"
+        ("sigfoss"
 	 ("user" . "hamazy")
 	 ("proto" . "%")
-	 ("mail-domain" . "xyzzyx.co.jp")
+	 ("mail-domain" . "sigfoss.com")
 
-	 ("smtp-ssl" . t)
-	 ("smtp-server" . "mail.xyzzyx.co.jp")
+	 ("smtp-server" . "sigfoss.sakura.ne.jp")
          ("smtp-auth" . t)
          ("smtp-auth-list" . ("CRAM-MD5" "DIGEST-MD5" "PLAIN" "LOGIN"))
-	 ("smtp-user" . "hamazy")
-	 ("smtp-ssl-port" . "465")
+	 ("smtp-user" . "hamazy@sigfoss.com")
+	 ("smtp-ssl" . nil)
+	 ("smtp-port" . "587")
 
 	 ("imap-ssl" . t)
 	 ("imap-ssl-port" . "993")
-	 ("imap-server" . "mail.xyzzyx.co.jp")
-	 ("imap-user" . "hamazy")
+	 ("imap-server" . "sigfoss.sakura.ne.jp")
+	 ("imap-user" . "hamazy@sigfoss.com")
          ("imap-auth"   . ("CRAM-MD5" "DIGEST-MD5" "PLAIN" "LOGIN"))
 	 ("imap-delete" . nil)
-	 ("signature-file" . "~/.signature.xyzzyx")
+	 ("signature-file" . "~/.signature.sigfoss")
 	 ("fcc". "%Sent"))))
 
 (setq mew-mime-multipart-alternative-list '("Text/Html" "Text/Plain" "*."))
@@ -95,44 +95,3 @@
                       (define-key mew-summary-mode-map
                         "\C-h" 'mew-summary-prev-page)
                       )))
-
-;; Refiling rules
-(setq mew-refile-guess-alist
-      '("From:"
-	 ("news@mixi.jp" . "%mixi")
-	 ("@twine.*\\.com" . "%twine")
-	 ("@.*twitter.*\\.com" . "%twitter")
-	 ("logwatch@webspiritus.com" . "%log")
-	 ("@.*istockphoto.com" . "%istockphoto")
-	 ("@amazon\\.co\\.jp" . "%amazon")
-	 ("@green\\\-japan\\.com" . "%recruit")
-	 ("@expy\\.jp" . "%jr-west")
-	 ("@.*\\mufg\\.jp" . "%ufj")
-	 ("@scribd.com" . "%scribd")
-	 ("@cs-mail\\.ezweb\\.ne\\.jp" . "%au")
-	 ("@.*slidemagnet\\.com" . "%slidemagnet")
-	 ("erico111@hotmail\\.com" . "%from/erico")
-	 ("@.*apple\\.com" . "%apple")
-	 ("@ufjcard\\.com" . "%ufjcard")
-	 ("@manning\\.com" . "%manning")
-	 ("@manning\\-sandbox\\.com" . "%manning")
-	 ("@netbk\\.co\\.jp" . "%netbank")
-	 ("@.*coach\\.com" . "%coach")
-	 ("@.*smbc\\.co\\.jp" . "%smbc")
-	 ("@.*pitapa\\.com" . "%pitapa"))
-	("List-ID"
-	 ("semantic_web.googlegroups.com" . "%googlegroups.semantic_web")
-	 ("sioc-dev.googlegroups.com" . "%googlegroups.sioc-dev")
-	 ("javaposse.googlegroups.com" . "%googlegroups.javapose"))
-	("X-Redmine-Project"
-         ("tigershark" . "%tigershark"))
-        ("X-ML-Name"
-         ("tigershark-ml" . "%tigershark")
-         ("lilith-ml" . "%lilith")
-         ("vertigo-ml". "%vertigo")
-         ("citizenkane-ml" . "%citizenkane")
-         ("rebecca-ml" . "%rebbecca")
-         ("rearwindow-ml", "%rearwindow"))
-        ("X-GitLab-Project"
-         ("skylink-access-android |" . "%tigershark")
-         ("skylinkaccess |" . "%tigershark"))))
