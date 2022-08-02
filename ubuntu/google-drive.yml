@@ -1,0 +1,13 @@
+---
+- hosts: all
+  tasks:
+    - name: add the repository
+      apt_repository:
+        repo: 'ppa:alessandro-strada/ppa'
+      become: yes
+
+    - name: install google-drive-ocamlfuse
+      apt:
+        name: google-drive-ocamlfuse
+        update_cache: yes
+      become: yes

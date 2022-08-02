@@ -5,11 +5,10 @@
 
   tasks:
     - name: install required packages
-      apt: name={{ item }} state=latest update_cache=yes
-      with_items:
-        - stunnel4
-        - w3m
-        - wv
+      apt:
+        name: ['stunnel4', 'w3m', 'wv']
+        state: latest
+        update_cache: yes
       become: yes
 
     - name: download the tarball
@@ -26,6 +25,7 @@
       command: ./configure
       args:
         chdir: /home/{{ ansible_user_id }}/Downloads/mew-{{ mew_version }}
+        creates: /home/{{ ansible_user_id }}/Downloads/mew-{{ mew_version }}/Makefile
 
     - name: make clean
       command: make clean
@@ -36,6 +36,7 @@
       command: make
       args:
         chdir: /home/{{ ansible_user_id }}/Downloads/mew-{{ mew_version }}
+        creates: /home/{{ ansible_user_id }}/Downloads/mew-{{ mew_version }}/mew.elc
 
     - name: make install
       command: make install
